@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Zombocom</title>
+    <style>
+      body {
+        font-family:sans-serif;
+        font-size:2em;
+        text-align:center;
+        font-weight:bold;
+      }
+      article,
+      section {
+        display:block;
+      }
+      article { margin:2em }
+      #zombocom {
+        padding:4em 2em;
+        -webkit-transform: rotate(12deg);
+      }
+      #status { color: white }
+      #status.open { background-color:green }
+      #status.closed { background-color:blue }
+      #status.failed { background-color:red }
+    </style>
+  </head>
+  <body>
+    <article>
+      <section id=status>Not connected</section>
+      <section id=zombocom></section>
+    </article>
+
+<script>
+  var conn = {},
+      serverUri = "ws://localhost:8888",
+      zombocom= document.getElementById("zombocom"),
+      state = document.getElementById("status");
+
+  function openConnection() {
+    if (!conn.readyState || conn.readyState > 1) {
+
+      conn = new WebSocket( serverUri );
+
+      conn.onopen = function () {
+        state.innerHTML = "Socket Open";
+        state.className = "open";
+      };
+
+      conn.onmessage = function( event ) {
+        zombocom.innerHTML = event.data || "";
+      };
+
+      conn.onclose = function( event ) {
+        state.innerHTML = "Socket Closed";
+        state.className = "closed";
+      };
+    }
+  }
+
+  if (!!window.WebSocket) {
+    openConnection();
+  } else {
+    state.innerHTML = "Sockets not supported";
+    state.className = "failed";
+  }
+</script>

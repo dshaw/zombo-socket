@@ -1,0 +1,5 @@
+Inane demo of Node.js, HTML5 Web Sockets and an internet classic.
+See http://zombocom-sockets.dshaw.com
+
+to run
+$ node zombocom-server.js
