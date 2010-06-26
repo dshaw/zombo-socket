@@ -37,7 +37,7 @@ server.addListener("listening", function() {
 server.addListener("connection", function( conn ) {
 
   var i=0,
-      maxlen = zombocom.length;
+      maxlen = zombocom.length - 1;
 
   sys.puts( "opened connection: "+conn._id );
 

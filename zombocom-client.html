@@ -17,7 +17,13 @@
       article { margin:2em }
       #zombocom {
         padding:4em 2em;
-        -webkit-transform: rotate(12deg);
+        -webkit-animation-name: tilt;
+        -webkit-animation-duration: 50s;
+        -webkit-animation-iteration-count: infinite;
+      }
+      @-webkit-keyframes tilt {
+        0%  { -webkit-transform: rotate(-24deg); }
+        100% { -webkit-transform: rotate(24deg); }
       }
       #status { color: white }
       #status.open { background-color:green }
@@ -34,7 +40,7 @@
 <script>
   var conn = {},
       serverUri = "ws://localhost:8888",
-      zombocom= document.getElementById("zombocom"),
+      zombocom = document.getElementById("zombocom"),
       state = document.getElementById("status");
 
   function openConnection() {
